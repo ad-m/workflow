@@ -32,6 +32,8 @@
     "@oclif/plugin-help": "^2.1.6",
     "ejs": "^2.6.1",
     "koa": "^2.7.0",
+    "koa-ejs": "^4.2.0",
+    "koa-route": "^3.2.0",
     "oclif": "^1.13.1"
   },
   "devDependencies": {

@@ -22,16 +22,16 @@ services:
     <<: *node
     command: node ./bin/dagflow orchester
     ports:
-      - "8001:8001"
+      - "8001:8000"
 
   webserver:
     <<: *node
     command: node ./bin/dagflow webserver
     ports:
-      - "8002:8002"
+      - "8002:8000"
 
   worker:
     <<: *node
     command: node ./bin/dagflow worker
     ports:
-      - "8003:8003"
+      - "8003:8000"
