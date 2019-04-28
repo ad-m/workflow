@@ -6,6 +6,8 @@ x-node:
   command: node ./bin/dagflow orchester
   volumes:
     - .:/code
+  environment: 
+    - REDIS_URL=redis://redis:6379
   working_dir: /code
   depends_on:
     - redis
@@ -35,3 +37,9 @@ services:
     command: node ./bin/dagflow worker
     ports:
       - "8003:8000"
+
+  kue:
+    <<: *node
+    command: node ./bin/dagflow kue
+    ports:
+      - "8004:8000"
