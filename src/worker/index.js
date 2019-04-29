@@ -8,8 +8,7 @@ export default function start() {
 
     execFile(process.execPath, [process.mainModule.filename, 'task']).then((stdout) => {
       console.log(stdout);
-    });
-    done();
+    }).finally(() => done());
   });
 
   process.once('uncaughtException', (err) => {
