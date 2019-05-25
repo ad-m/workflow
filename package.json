@@ -22,7 +22,8 @@
     "/src"
   ],
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "ava"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -45,6 +46,7 @@
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@oclif/dev-cli": "^1.22.0",
+    "ava": "^1.4.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
