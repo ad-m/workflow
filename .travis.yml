@@ -1,0 +1,6 @@
+services:
+  - docker
+
+script:
+  docker-compose run webserver npm run lint
+  docker-compose run webserver npm run test

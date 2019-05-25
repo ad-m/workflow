@@ -25,6 +25,17 @@
     "lint": "eslint .",
     "test": "ava"
   },
+  "ava": {
+    "files": [
+      "test/**/*.js"
+    ],
+    "sources": [
+      "src/**/*.js"
+    ],
+    "require": [
+      "@babel/register"
+    ]
+  },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/polyfill": "^7.4.4",
@@ -32,6 +43,9 @@
     "@oclif/command": "^1.5.12",
     "@oclif/config": "^1.12.12",
     "@oclif/plugin-help": "^2.1.6",
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
+    "babel-runtime": "^6.26.0",
     "ejs": "^2.6.1",
     "koa": "^2.7.0",
     "koa-ejs": "^4.2.0",
@@ -50,6 +64,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.17.2"
+    "eslint-plugin-import": "^2.17.2",
+    "supertest": "^4.0.2"
   }
 }

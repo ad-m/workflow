@@ -18,7 +18,7 @@ services:
   mongo:
     image: mongo
     volumes:
-      - ./compose/mongo:/data/db
+      - mongo_data:/data/db
   redis:
     image: "redis:alpine"
     volumes:
@@ -56,3 +56,6 @@ services:
     restart: always
     ports:
       - "8005:8081"
+
+volumes:
+  mongo_data:

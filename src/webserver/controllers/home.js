@@ -6,7 +6,6 @@ const home = {
       name: 'x',
     });
     await task.save();
-    console.log(task._id);
     await ctx.render('index', {
       title: 'DAGFlow',
       message: 'Hello World',
