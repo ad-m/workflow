@@ -1,18 +1,24 @@
 version: '3.7'
 
-x-node: 
+x-node:
   &node
   image: node:lts
   command: node ./bin/dagflow orchester
   volumes:
     - .:/code
-  environment: 
+  environment:
     - REDIS_URL=redis://redis:6379
+    - REDIS_URL=mongodb://mongo:27017/test
   working_dir: /code
   depends_on:
     - redis
+    - mongo
 
 services:
+  mongo:
+    image: mongo
+    volumes:
+      - ./compose/mongo:/data/db
   redis:
     image: "redis:alpine"
     volumes:
@@ -29,6 +35,7 @@ services:
   webserver:
     <<: *node
     command: node ./bin/dagflow webserver
+
     ports:
       - "8002:8000"
 
@@ -43,3 +50,9 @@ services:
     command: node ./bin/dagflow kue
     ports:
       - "8004:8000"
+
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+      - "8005:8081"
