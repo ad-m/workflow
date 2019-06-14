@@ -1,4 +1,4 @@
-import Task from '../../models/task';
+import Task from '../../models/task_instance';
 
 const home = {
   index: async (ctx) => {

@@ -1,22 +1,33 @@
 import { Command, flags } from '@oclif/command';
+import TaskInstance from "../models/task_instance";
+import { findTask } from '../loaders';
 
-class HelloCommand extends Command {
+class TaskCommand extends Command {
   async run() {
-    const { flags: flagsCommand } = this.parse(HelloCommand);
-    const name = flagsCommand.name || 'world';
-    this.log(`hello ${name} from ./src/commands/worker.js`);
+    const { flags: {
+      'task-id': taskId,
+      'dag-run-id': dagRunId,
+    }} = this.parse(TaskCommand);
 
-    console.log('Running a task in isolated process');
+    const ti = await TaskInstance.findOne({
+      task_id: taskId,
+      dag_run: dagRunId
+    }).populate('dag_run')
+
+    const task = await findTask(ti.dag_run.dag_name, ti.task_id)
+    await task.run(ti)
+    process.exit(0)
   }
 }
 
-HelloCommand.description = `Describe the command here
+TaskCommand.description = `Describe the command here
 ...
 Extra documentation goes here
 `;
 
-HelloCommand.flags = {
-  name: flags.string({ char: 'n', description: 'name to print' }),
+TaskCommand.flags = {
+  'task-id': flags.string({ required: true }),
+  'dag-run-id': flags.string({ required: true }),  
 };
 
-export default HelloCommand;
+export default TaskCommand;
