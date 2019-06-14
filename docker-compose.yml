@@ -2,13 +2,17 @@ version: '3.7'
 
 x-node:
   &node
-  image: node:lts
-  command: node ./bin/dagflow orchester
+  build: .
+  image: dagflow_node
   volumes:
     - .:/code
+    - ../keys:/keys
   environment:
     - REDIS_URL=redis://redis:6379
     - MONGO_URL=mongodb://mongo:27017/test
+    - DEBUG=app:*
+    - GOOGLE_APPLICATION_CREDENTIALS=/keys/dagflow2.json
+    - CLOUDSDK_CORE_PROJECT=raporty-kamil
   working_dir: /code
   depends_on:
     - redis
@@ -19,6 +23,7 @@ services:
     image: mongo
     volumes:
       - mongo_data:/data/db
+
   redis:
     image: "redis:alpine"
     volumes:
@@ -28,26 +33,26 @@ services:
 
   orchester:
     <<: *node
-    command: node ./bin/dagflow orchester
+    command: ./init.sh npx nodemon ./bin/dagflow orchester
     ports:
       - "8001:8000"
 
   webserver:
     <<: *node
-    command: node ./bin/dagflow webserver
+    command: ./init.sh npx nodemon ./bin/dagflow webserver
 
     ports:
       - "8002:8000"
 
   worker:
     <<: *node
-    command: node ./bin/dagflow worker
+    command: ./init.sh npx nodemon ./bin/dagflow worker
     ports:
       - "8003:8000"
 
   kue:
     <<: *node
-    command: node ./bin/dagflow kue
+    command: ./init.sh npx nodemon ./bin/dagflow kue
     ports:
       - "8004:8000"
 
@@ -56,6 +61,8 @@ services:
     restart: always
     ports:
       - "8005:8081"
+    depends_on:
+      - mongo
 
 volumes:
   mongo_data:

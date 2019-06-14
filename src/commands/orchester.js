@@ -1,9 +1,9 @@
 import { Command, flags } from '@oclif/command';
 import start from '../orchester';
 
-class HelloCommand extends Command {
+class OrchesterCommand extends Command {
   async run() {
-    const { flags: flagsCommand } = this.parse(HelloCommand);
+    const { flags: flagsCommand } = this.parse(OrchesterCommand);
     const name = flagsCommand.name || 'world';
     this.log(`hello ${name} from ./src/commands/orchester.js`);
 
@@ -11,13 +11,13 @@ class HelloCommand extends Command {
   }
 }
 
-HelloCommand.description = `Describe the command here
+OrchesterCommand.description = `Describe the command here
 ...
 Extra documentation goes here
 `;
 
-HelloCommand.flags = {
+OrchesterCommand.flags = {
   name: flags.string({ char: 'n', description: 'name to print' }),
 };
 
-export default HelloCommand;
+export default OrchesterCommand;
